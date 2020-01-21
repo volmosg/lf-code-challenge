@@ -52,10 +52,28 @@ public class HelloWorldService {
 	public Optional<Greeting> getDefaultGreeting() {
 		return getGreeting(DEFAULT_ID);
 	}
+	
+	// update existing greeting
+	public Greeting updateGreeting(Greeting request, String id) {
+		entityValidator.validateUpdate(request);
+		request.setId(id);
+		return save(request);
+	}
+	
+	public void deleteGreeting(String id) {
+		delete(id);
+		
+	}
 
 	private Greeting save(Greeting greeting) {
 		this.greetings.put(greeting.getId(), greeting);
 
 		return greeting;
 	}
+	
+	private void delete(String id) {
+		this.greetings.remove(id);
+	}
+
+	
 }
